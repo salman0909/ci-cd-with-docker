@@ -1,21 +1,27 @@
 pipeline {
     agent any
+
+    environment {
+        dockerhubCredentials = 'dockerhub-credentials'
+        dockerImageTag = "Salman1091/ci-cd-with-docker:${BUILD_ID}"
+        dockerUsername = credentials('dockerhub-credentials')
+        dockerPassword = credentials('dockerhub-credentials')
+    }
+
     stages {
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("ci-cd-with-docker:${env.BUILD_ID}")
-                }
+                sh "docker build -t $dockerImageTag ."
             }
         }
-        stage('Deploy') {
+
+        stage('Push Docker Image') {
             steps {
-                script {
-                    docker.withRegistry('', 'dockerhub-credentials') {
-                        docker.image("ci-cd-with-docker:${env.BUILD_ID}").push()
-                    }
-                }
+                sh "docker login -u $dockerUsername -p $dockerPassword"
+                sh "docker push $dockerImageTag"
             }
         }
     }
 }
+
+
