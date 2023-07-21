@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         dockerhubCredentials = 'dockerhub-credentials'
-        dockerImageTag = "salman1091/ci-cd-with-docker:${currentBuildTime()}"
+        dockerImageTag = "salman1091/ci-cd-with-docker:${env.BUILD_ID}"
         dockerUsername = credentials('dockerhub-credentials')
         dockerPassword = credentials('dockerhub-credentials')
     }
