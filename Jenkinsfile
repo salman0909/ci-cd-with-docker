@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         dockerhubCredentials = 'dockerhub-credentials'
-        dockerImageTag = "salman1091/ci-cd-with-docker:${env.BUILD_ID}"
-        dockerUsername = credentials('dockerhub-credentials')
-        dockerPassword = credentials('dockerhub-credentials')
+        dockerImageTag = "salman1091/my-web-app:${BUILD_TAG.toLowerCase()}"
+        dockerUsername = credentials('dockerhub-credentials').USUARIO
+        dockerPassword = credentials('dockerhub-credentials').SENHA
     }
 
     stages {
