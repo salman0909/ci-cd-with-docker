@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         dockerhubCredentials = 'dockerhub-credentials'
-        dockerImageTag = "Salman1091/ci-cd-with-docker:${BUILD_ID}"
+        dockerImageTag = "Salman1091/ci-cd-with-docker:${BUILD_ID.toLowerCase()}"
         dockerUsername = credentials('dockerhub-credentials')
         dockerPassword = credentials('dockerhub-credentials')
     }
@@ -23,5 +23,6 @@ pipeline {
         }
     }
 }
+
 
 
